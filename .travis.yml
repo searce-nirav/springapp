@@ -1,4 +1,12 @@
+arch:
+- amd64
+
 language: java
+
+os: 
+- linux
+
+dist: xenial
 
 services:
 - docker
@@ -6,6 +14,7 @@ services:
 before_install:
   - sudo apt-get update
   - sudo apt-get -y install libxml2-dev
+  - chmod +x mvnw
 
 script:
 - echo "Hello-World"
