@@ -1,0 +1,11 @@
+language: java
+
+services:
+- docker
+
+before_install:
+  - sudo apt-get update
+  - sudo apt-get -y install libxml2-dev
+
+script:
+- echo "Hello-World"
