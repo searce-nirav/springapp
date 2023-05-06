@@ -1,0 +1,23 @@
+arch:
+- amd64
+
+language: java
+
+jdk:
+- oraclejdk8
+
+os: linux
+
+dist: facal
+
+services:
+- docker
+
+before_install:
+  - sudo apt-get update
+  - sudo apt-get -y install libxml2-dev
+  - chmod +x mvnw
+
+script:
+- echo "Hello-World"
+- mvn test
