@@ -6,17 +6,25 @@ language: java
 jdk:
 - oraclejdk8
 
+<<<<<<< HEAD
 os: linux
 
 dist: jammy
 
 sudo: required
+=======
+os: 
+- linux
+
+dist: xenial
+>>>>>>> 6e039207b9ff0d6c8aa364b4200026ba93206df5
 
 services:
 - docker
 
 before_install:
   - sudo apt-get update
+<<<<<<< HEAD
   - docker build -t test .
 
 script:
@@ -29,3 +37,14 @@ notifications:
     - yugjaysoni007@gmail.com
 
     on_success: never
+=======
+  - sudo apt-get -y install libxml2-dev
+  - chmod +x mvnw
+
+install:
+- mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+
+script:
+- echo "Hello-World"
+- mvn test
+>>>>>>> 6e039207b9ff0d6c8aa364b4200026ba93206df5
