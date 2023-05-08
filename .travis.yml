@@ -8,16 +8,21 @@ jdk:
 
 os: linux
 
-dist: facal
+dist: jammy
+
+sudo: required
 
 services:
 - docker
 
 before_install:
   - sudo apt-get update
-  - sudo apt-get -y install libxml2-dev
-  - chmod +x mvnw
+  - docker build -t test .
 
 script:
 - echo "Hello-World"
 - mvn test
+
+notifications:
+  email:
+    - yugjaysoni007@gmail.com
