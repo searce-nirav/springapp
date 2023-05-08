@@ -1,0 +1,27 @@
+arch:
+- amd64
+
+language: java
+
+jdk:
+- oraclejdk8
+
+os: 
+- linux
+
+dist: xenial
+
+services:
+- docker
+
+before_install:
+  - sudo apt-get update
+  - sudo apt-get -y install libxml2-dev
+  - chmod +x mvnw
+
+install:
+- mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+
+script:
+- echo "Hello-World"
+- mvn test
