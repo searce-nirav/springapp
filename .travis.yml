@@ -25,4 +25,7 @@ script:
 
 notifications:
   email:
+    recipients:
     - yugjaysoni007@gmail.com
+
+    on_success: never
