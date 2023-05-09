@@ -2,13 +2,12 @@
 language: bash
 services:
   - docker
-#before_install:
+before_install:
 - curl https://sdk.cloud.google.com | bash > /dev/null
 - source "$HOME/google-cloud-sdk/path.bash.inc"
 - gcloud auth activate-service-account --key-file=service-account-key.json
 - gcloud auth configure-docker    # enable "docker push" to gcr
 - gcloud config set project "${PROJECT_ID}"
-install: true
 script:
   - docker build -t springapp-test .
   - docker tag springapp-test:latest
