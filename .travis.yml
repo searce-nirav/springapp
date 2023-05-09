@@ -10,9 +10,9 @@ services:
 script:
   - docker build -t springapp-test .
   - docker tag springapp-test:latest
-    us-west2-docker.pkg.dev/thematic-metric-381904/travis-test/springapp-test:latest
+    us-west2-docker.pkg.dev/$PROJECT_ID/travis-test/springapp-test:latest
   - docker push
-    us-west2-docker.pkg.dev/thematic-metric-381904/travis-test/springapp-test:latest
+    us-west2-docker.pkg.dev/$PROJECT_ID/travis-test/springapp-test:latest
 notifications:
   email:
     recipients:
