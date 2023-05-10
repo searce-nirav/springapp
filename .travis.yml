@@ -19,7 +19,7 @@ script:
   - docker build -t springapp-test:latest .
   - docker tag springapp-test:latest
     europe-west2-docker.pkg.dev/${PROJECT_ID}/travis-test/springapp-test:latest
-  - usermod -a -G docker ${USER}
+  #- usermod -a -G docker ${USER}
   - gcloud auth configure-docker europe-west2-docker.pkg.dev
   - docker-credential-gcloud list
   - docker push
