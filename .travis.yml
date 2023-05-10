@@ -3,12 +3,10 @@ language: bash
 services:
   - docker
 before_install:
-  - curl https://sdk.cloud.google.com | bash > /dev/null
+  - travis_wait 20 curl https://sdk.cloud.google.com | bash > /dev/null
   - source "$HOME/google-cloud-sdk/path.bash.inc"
   - gcloud auth activate-service-account --key-file=${key.json}
   - gcloud config set project "${PROJECT_ID}"
-install:
-  - travis_wait 20 mvn install
 script:
   - docker build -t springapp-test .
   - docker tag springapp-test:latest
