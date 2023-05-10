@@ -3,11 +3,19 @@ language: bash
 services:
   - docker
 before_install:
-  - curl https://sdk.cloud.google.com | bash > /dev/null
-  - travis-wait 20 source "$HOME/google-cloud-sdk/path.bash.inc"
-  - gcloud auth activate-service-account --key-file=${key.json}
+#  - curl https://sdk.cloud.google.com | bash > /dev/null
+#  - source "$HOME/google-cloud-sdk/path.bash.inc"
+  - gcloud auth activate-service-account --key-file="${key.json}"
   - gcloud config set project "${PROJECT_ID}"
+cache:
+  directories:
+    - "$HOME/google-cloud-sdk/"
 script:
+  - gcloud version || true
+  - if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; export CLOUDSDK_CORE_DISABLE_PROMPTS=1; curl https://sdk.cloud.google.com | bash; fi
+  # Add gcloud to $PATH
+  - source /home/travis/google-cloud-sdk/path.bash.inc
+  - gcloud version
   - docker build -t springapp-test:latest .
   - docker tag springapp-test:latest
     us-west2-docker.pkg.dev/$PROJECT_ID/travis-test/springapp-test:latest
