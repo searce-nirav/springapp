@@ -5,7 +5,7 @@ services:
 before_install:
 #  - curl https://sdk.cloud.google.com | bash > /dev/null
 #  - source "$HOME/google-cloud-sdk/path.bash.inc"
-  - "gcloud auth activate-service-account --key-file=${key.json}"
+  - "gcloud auth login --impersonate-service-account ${SA_NAME}
   - "gcloud config set project ${PROJECT_ID}"
 cache:
   directories:
