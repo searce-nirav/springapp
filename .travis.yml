@@ -5,8 +5,10 @@ services:
 before_install:
 #  - curl https://sdk.cloud.google.com | bash > /dev/null
 #  - source "$HOME/google-cloud-sdk/path.bash.inc"
-  - gcloud auth login --impersonate-service-account ${SA_NAME}
   - gcloud config set project ${PROJECT_ID}
+  - gcloud config set account ${SA_NAME}
+  - gcloud auth login --impersonate-service-account ${SA_NAME}
+  
 cache:
   directories:
     - "$HOME/google-cloud-sdk/"
