@@ -16,13 +16,15 @@ script:
   - if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; export CLOUDSDK_CORE_DISABLE_PROMPTS=1; curl https://sdk.cloud.google.com | bash; fi
   # Add gcloud to $PATH fghjkl
   - source /home/travis/google-cloud-sdk/path.bash.inc
-  - gcloud version
-  - gcloud auth configure-docker europe-west2-docker.pkg.dev -y
   - docker build -t springapp-test:latest .
   - docker tag springapp-test:latest
     europe-west2-docker.pkg.dev/${PROJECT_ID}/travis-test/springapp-test:latest
+  - usermod -a -G docker ${USER}
+  - gcloud auth configure-docker europe-west2-docker.pkg.dev
+  - docker-credential-gcloud list
   - docker push
     europe-west2-docker.pkg.dev/${PROJECT_ID}/travis-test/springapp-test:latest
+    #testing docker creds
 notifications:
   email:
     recipients:
