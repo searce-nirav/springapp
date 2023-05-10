@@ -7,7 +7,7 @@ before_install:
 #  - source "$HOME/google-cloud-sdk/path.bash.inc"
   - gcloud config set project ${PROJECT_ID}
   - gcloud config set auth/impersonate_service_account ${SA_NAME}
-  
+
 cache:
   directories:
     - "$HOME/google-cloud-sdk/"
@@ -17,6 +17,7 @@ script:
   # Add gcloud to $PATH fghjkl
   - source /home/travis/google-cloud-sdk/path.bash.inc
   - gcloud version
+  - gcloud auth configure-docker europe-west2-docker.pkg.dev
   - docker build -t springapp-test:latest .
   - docker tag springapp-test:latest
     europe-west2-docker.pkg.dev/$PROJECT_ID/travis-test/springapp-test:latest
