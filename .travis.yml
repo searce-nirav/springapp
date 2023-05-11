@@ -17,22 +17,15 @@ script:
   
   # Add gcloud to $PATH fghjkl
   - source /home/travis/google-cloud-sdk/path.bash.inc
-<<<<<<< HEAD
-=======
   - gcloud version
   - gcloud config list
 
 #  - gcloud auth configure-docker europe-west2-docker.pkg.dev -y
->>>>>>> 3525b80 (Solving permission denied error)
   - docker build -t springapp-test:latest .
   - docker tag springapp-test:latest
     europe-west2-docker.pkg.dev/${PROJECT_ID}/travis-test/springapp-test:latest
-  #- usermod -a -G docker ${USER}
-  - gcloud auth configure-docker europe-west2-docker.pkg.dev
-  - docker-credential-gcloud list
   - docker push
     europe-west2-docker.pkg.dev/${PROJECT_ID}/travis-test/springapp-test:latest
-    #testing docker creds
 notifications:
   email:
     recipients:
