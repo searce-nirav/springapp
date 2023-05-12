@@ -3,7 +3,7 @@ language: bash
 services:
   - docker
 
-before_install:
+#before_install:
 #  - curl https://sdk.cloud.google.com | bash > /dev/null
 #  - source "$HOME/google-cloud-sdk/path.bash.inc"
 #  - gcloud config set project ${PROJECT_ID}
@@ -14,7 +14,7 @@ before_install:
 #   directories:
 #     - "$HOME/google-cloud-sdk/"
 
-script:
+#script:
 
   # Add gcloud to $PATH
 #  - source /home/travis/google-cloud-sdk/path.bash.inc
@@ -24,10 +24,10 @@ script:
 #  - gcloud auth configure-docker europe-west2-docker.pkg.dev -y
   
 
-deploy:
-  - provider: script
-    script: travis/deploy.sh
-    skip_cleanup: true
+script:
+#  - provider: script
+  - ./travis/deploy.sh
+#    skip_cleanup: true
     on:
       all_branches: true
 
