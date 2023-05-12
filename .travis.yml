@@ -10,9 +10,9 @@ before_install:
 #  - gcloud config set auth/impersonate_service_account ${SA_NAME}
 #  - gcloud auth configure-docker \ europe-west2-docker.pkg.dev
 
-cache:
-  directories:
-    - "$HOME/google-cloud-sdk/"
+# cache:
+#   directories:
+#     - "$HOME/google-cloud-sdk/"
 
 script:
 
@@ -27,9 +27,9 @@ script:
 deploy:
   - provider: script
     script: travis/deploy.sh
-    skip_cleanup: true
+    #skip_cleanup: true
     on:
-      branch: travis1
+      all_branches: true
 
 notifications:
   email:
