@@ -4,6 +4,7 @@ services:
   - docker
 script:
 #  - provider: script
+  - chmod +x /travis/deploy.sh
   - ./travis/deploy.sh
 #    skip_cleanup: true
 #    on:
