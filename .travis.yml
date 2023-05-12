@@ -24,11 +24,13 @@ script:
 #  - gcloud config list
 #  - gcloud components update
 #  - gcloud auth configure-docker europe-west2-docker.pkg.dev -y
+  - chmod +x travis/deploy.sh && travis/deploy.sh
   
 
 deploy:
   - provider: script
     script: travis/deploy.sh
+    skip_cleanup: true
     on:
       branch: travis1
 
