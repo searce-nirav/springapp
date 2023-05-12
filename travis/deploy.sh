@@ -2,7 +2,7 @@
 gcloud version || true
 if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; export CLOUDSDK_CORE_DISABLE_PROMPTS=1; curl https://sdk.cloud.google.com | bash; fi
 export PATH=${HOME}/google-cloud-sdk/bin:${PATH}
-
+echo $PATH
 
 echo ${SA_KEY} | base64 --decode -i > ${HOME}/gcloud-service-key.json
 gcloud auth activate-service-account --key-file ${HOME}/gcloud-service-key.json
