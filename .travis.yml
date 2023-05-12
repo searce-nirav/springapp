@@ -5,6 +5,11 @@ services:
 
 before_install:
   - chmod +x travis/deploy.sh
+
+# cache:
+#   directories:
+#     - "$HOME/google-cloud-sdk/"
+
 script:
   - ls -ll
   - travis/deploy.sh
@@ -18,21 +23,13 @@ script:
 #  - gcloud config set auth/impersonate_service_account ${SA_NAME}
 #  - gcloud auth configure-docker \ europe-west2-docker.pkg.dev
 
-# cache:
-#   directories:
-#     - "$HOME/google-cloud-sdk/"
-
 #script:
-
   # Add gcloud to $PATH
 #  - source /home/travis/google-cloud-sdk/path.bash.inc
 #  - gcloud version
 #  - gcloud config list
 #  - gcloud components update
 #  - gcloud auth configure-docker europe-west2-docker.pkg.dev -y
-  
-#ghjkljj
-
 notifications:
   email:
     recipients:
