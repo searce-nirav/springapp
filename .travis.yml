@@ -6,7 +6,7 @@ services:
 before_install:
 #  - curl https://sdk.cloud.google.com | bash > /dev/null
 #  - source "$HOME/google-cloud-sdk/path.bash.inc"
-  - gcloud config set project ${PROJECT_ID}
+#  - gcloud config set project ${PROJECT_ID}
 #  - gcloud config set auth/impersonate_service_account ${SA_NAME}
 #  - gcloud auth configure-docker \ europe-west2-docker.pkg.dev
 
@@ -15,16 +15,13 @@ cache:
     - "$HOME/google-cloud-sdk/"
 
 script:
-  - gcloud version || true
-  - if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; export CLOUDSDK_CORE_DISABLE_PROMPTS=1; curl https://sdk.cloud.google.com | bash; fi
-  
+
   # Add gcloud to $PATH
-  - source /home/travis/google-cloud-sdk/path.bash.inc
-  - gcloud version
+#  - source /home/travis/google-cloud-sdk/path.bash.inc
+#  - gcloud version
 #  - gcloud config list
 #  - gcloud components update
 #  - gcloud auth configure-docker europe-west2-docker.pkg.dev -y
-  - chmod +x travis/deploy.sh && travis/deploy.sh
   
 
 deploy:
