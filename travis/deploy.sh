@@ -7,6 +7,7 @@ export PATH=${HOME}/google-cloud-sdk/bin:${PATH}
 #gcloud --quiet components install kubectl
 
 gcloud config set project ${PROJECT_ID}
+gcloud components update
 echo ${SA_KEY} | base64 --decode -i > ${HOME}/gcloud-service-key.json
 gcloud auth activate-service-account --key-file ${HOME}/gcloud-service-key.json
 
