@@ -4,7 +4,7 @@ services:
   - docker
 
 before_install:
-  - chmod +x /travis/deploy.sh
+  - chmod +x travis/deploy.sh
 script:
 #  - provider: script
   - ls -ll
