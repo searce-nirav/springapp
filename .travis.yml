@@ -29,6 +29,8 @@ script:
 deploy:
   - provider: script
     script: travis/deploy.sh
+    on:
+      branch: travis1
 
 notifications:
   email:
