@@ -2,7 +2,12 @@
 language: bash
 services:
   - docker
-
+script:
+#  - provider: script
+  - ./travis/deploy.sh
+#    skip_cleanup: true
+#    on:
+#      all_branches: true
 #before_install:
 #  - curl https://sdk.cloud.google.com | bash > /dev/null
 #  - source "$HOME/google-cloud-sdk/path.bash.inc"
@@ -24,12 +29,6 @@ services:
 #  - gcloud auth configure-docker europe-west2-docker.pkg.dev -y
   
 #ghjkljj
-script:
-#  - provider: script
-  - ./travis/deploy.sh
-#    skip_cleanup: true
-    on:
-      all_branches: true
 
 notifications:
   email:
