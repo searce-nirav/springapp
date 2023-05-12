@@ -11,8 +11,8 @@ echo ${SA_KEY} | base64 --decode -i > ${HOME}/gcloud-service-key.json
 gcloud auth activate-service-account ${SA_NAME} --key-file ${HOME}/gcloud-service-key.json
 gcloud config set project ${PROJECT_ID}
 
-gcloud auth configure-docker -y
-docker-credential-gcr configure-docker
+echo Y | sudo gcloud auth configure-docker
+# docker-credential-gcr configure-docker
 #gcloud artifacts locations list
 docker build -t springapp-test:latest .
 docker tag springapp-test:latest gcr.io/${PROJECT_ID}/springapp-test:latest
