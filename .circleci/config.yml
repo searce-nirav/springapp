@@ -15,11 +15,11 @@ jobs:
       - checkout
 #      - run:
 #          name: Build Application
-  deploy:
-    docker:
-      - image: cimg/base:2022.09
-    steps:
-      - checkout
+ # deploy:
+  #  docker:
+   #   - image: cimg/base:2022.09
+    #steps:
+     # - checkout
 #      - run:
 #          name: Build Application
 workflows:
@@ -29,11 +29,11 @@ workflows:
       - test:
           requires:
             - build
-      - hold:
-          type: approval
-          requires:
-            - build
-            - test
-      - deploy:
-          requires:
-            - hold
+     # - hold:
+      #    type: approval
+       #   requires:
+        #    - build
+         #   - test
+     # - deploy:
+      #    requires:
+       #     - hold
