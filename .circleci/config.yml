@@ -6,7 +6,7 @@ jobs:
       - image: cimg/base:2022.09
     steps:
       - checkout
-      - run:
+      - run: 
           name: Build Application
   test:
     docker:
@@ -23,7 +23,7 @@ jobs:
       - run:
           name: Build Application
 
-  workflows:
+workflows:
     springapp:
       jobs:
       - build
