@@ -3,28 +3,21 @@ version: 2.9
 jobs:
   build:
     docker:
-      - image:
+      - image: cimg/base:2022.09
     steps:
       - checkout
       - run:
           name: Build Application
   test:
     docker:
-      - image:
-    steps:
-      - checkout
-      - run:
-          name: Build Application
-  hold:
-    docker:
-      - image:
+      - image: cimg/base:2022.09
     steps:
       - checkout
       - run:
           name: Build Application
   deploy:
     docker:
-      - image:
+      - image: cimg/base:2022.09
     steps:
       - checkout
       - run:
