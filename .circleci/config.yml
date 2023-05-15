@@ -21,4 +21,20 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Build Application        
+          name: Build Application
+
+  workflows:
+    springapp:
+      jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - hold:
+          type: approval
+          requires:
+            - build
+            - test
+      - deploy:
+          requires:
+            - hold
