@@ -23,7 +23,7 @@ jobs:
             # This step will send request our "API" and fail if there is
             unexpected output.
 
-            tcurl -s "$GCP_DEPLOY_ENDPOINT"
+            curl -s "$GCP_DEPLOY_ENDPOINT"
 
             GCP_API_RESULTS=$(curl -s "$GCP_DEPLOY_ENDPOINT")
 
