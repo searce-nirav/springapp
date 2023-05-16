@@ -1,5 +1,6 @@
 
 version: 2.1
+
 jobs:
   build_and_deploy:
     docker:
@@ -37,43 +38,7 @@ jobs:
 orbs:
   cloudrun: circleci/gcp-cloud-run@1.0.2
 
-# version: 2.1
-
 workflows:
   build_and_deploy_to_managed_workflow:
     jobs:
       - build_and_deploy
-  # test:
-  #   docker:
-  #     - image: cimg/base:2022.09
-  #   steps:
-  #     - checkout
-     # - run:
-          #name: Application
-     #     command: |
-         
-          
-           
-
- # deploy:
-  #  docker:
-   #   - image: cimg/base:2022.09
-    #steps:
-     # - checkout
-#      - run:
-#          name: Build Application
-# workflows:
-#   springapp:
-#     jobs:
-#       - build
-      # - test:
-      #     requires:
-      #       - build
-     # - hold:
-      #    type: approval
-       #   requires:
-        #    - build
-         #   - test
-     # - deploy:
-      #    requires:
-       #     - hold
