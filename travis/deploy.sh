@@ -13,6 +13,15 @@ gcloud config set project ${PROJECT_ID}
 
 #echo Y | sudo gcloud auth configure-docker
 gcloud auth configure-docker -y
+
+VERSION=2.1.5
+OS=linux  # or "darwin" for OSX, "windows" for Windows.
+ARCH=amd64  # or "386" for 32-bit OSs, "arm64" for ARM 64.
+
+curl -fsSL "https://github.com/GoogleCloudPlatform/docker-credential-gcr/releases/download/v${VERSION}/docker-credential-gcr_${OS}_${ARCH}-${VERSION}.tar.gz" \
+| tar xz docker-credential-gcr \
+&& chmod +x docker-credential-gcr && sudo mv docker-credential-gcr /usr/bin/
+
 docker-credential-gcr configure-docker
 docker build -t springapp-test:latest .
 docker tag springapp-test:latest gcr.io/${PROJECT_ID}/springapp-test:latest
