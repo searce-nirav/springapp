@@ -8,7 +8,7 @@ jobs:
       - checkout
       - run:
          command: |
-          name: Build Application
+           Build Application
   test:
     docker:
       - image: cimg/base:2022.09
@@ -16,7 +16,7 @@ jobs:
       - checkout
       - run:
          command: | 
-          name: Test Application
+           Test Application
 
  # deploy:
   #  docker:
