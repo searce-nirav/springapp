@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-gcloud version || true
+#gcloud version || true
 #if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; export CLOUDSDK_CORE_DISABLE_PROMPTS=1; curl https://sdk.cloud.google.com | bash; fi
 
 curl https://sdk.cloud.google.com | bash -s -- --disable-prompts > /dev/null
@@ -15,8 +15,8 @@ echo Y | sudo gcloud auth configure-docker
 # docker-credential-gcr configure-docker
 #gcloud artifacts locations list
 docker build -t springapp-test:latest .
-docker tag springapp-test:latest gcr.io/${PROJECT_ID}/springapp-test:latest
-gcloud docker -- push gcr.io/${PROJECT_ID}/springapp-test:latest
+docker tag springapp-test:latest gcr.io/${PROJECT_ID}/spring-app/springapp-test:latest
+docker push gcr.io/${PROJECT_ID}/spring-app/springapp-test:latest
 
 #docker tag springapp-test:latest europe-west2-docker.pkg.dev/${PROJECT_ID}/travis-test/springapp-test:latest
 #docker push europe-west2-docker.pkg.dev/${PROJECT_ID}/travis-test/springapp-test:
