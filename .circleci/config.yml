@@ -9,9 +9,9 @@ jobs:
       - checkout
       - cloudrun/init
       - cloudrun/build:
-          tag: gcr.io/${GOOGLE_PROJECT_ID}/test-${CIRCLE_SHA1}
+          tag: gcr.io/${PROJECT_ID}/test-${CIRCLE_SHA1}
       - cloudrun/deploy:
-          image: gcr.io/${GOOGLE_PROJECT_ID}/test-${CIRCLE_SHA1}
+          image: gcr.io/${PROJECT_ID}/test-${CIRCLE_SHA1}
           platform: managed
           region: us-central1
           service-name: example-service
