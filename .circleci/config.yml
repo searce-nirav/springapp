@@ -13,7 +13,7 @@ jobs:
       - cloudrun/deploy:
           image: gcr.io/${GOOGLE_PROJECT_ID}/test-${CIRCLE_SHA1}
           platform: managed
-          region: us-east1
+          region: us-central1
           service-name: example-service
           unauthenticated: true
       - run:
