@@ -4,14 +4,14 @@ version: 2.1
 jobs:
   build_and_deploy_job:
     docker:
-      - image: circleci/cci-demo-docker-primary:0.0.1
+      - image: cimg/base:2022.09
     steps:
       - checkout
       - cloudrun/init
       - cloudrun/build:
-          tag: gcr.io/${PROJECT_ID}/test-${CIRCLE_SHA1}
+          tag: gcr.io/${GOOGLE_PROJECT_ID}/test-${CIRCLE_SHA1}
       - cloudrun/deploy:
-          image: gcr.io/${PROJECT_ID}/test-${CIRCLE_SHA1}
+          image: gcr.io/${GOOGLE_PROJECT_ID}/test-${CIRCLE_SHA1}
           platform: managed
           region: us-central1
           service-name: example-service
@@ -31,7 +31,7 @@ jobs:
             fi
           name: Test managed deployed service.
 orbs:
-  cloudrun: circleci/gcp-cloud-run@1.0.0
+  cloudrun: circleci/gcp-cloud-run@1.0.2
 
 workflows:
   build_and_deploy_to_managed_workflow:
