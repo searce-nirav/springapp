@@ -14,6 +14,16 @@ script:
   - ls -ll
   - travis/deploy.sh
 
+notifications:
+  email:
+    recipients:
+      - yug.soni@searce.com
+    on_success: never
+    on_failure: always
+
+
+
+
 #    skip_cleanup: true
 #    on:
 #      all_branches: true
@@ -31,9 +41,3 @@ script:
 #  - gcloud config list
 #  - gcloud components update
 #  - gcloud auth configure-docker europe-west2-docker.pkg.dev -y
-notifications:
-  email:
-    recipients:
-      - yug.soni@searce.com
-    on_success: never
-    on_failure: always
