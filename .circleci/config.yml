@@ -6,15 +6,17 @@ jobs:
       - image: cimg/base:2022.09
     steps:
       - checkout
-#      - run:
-#          name: Build Application
+      - run:
+         command: |
+          name: Build Application
   test:
     docker:
       - image: cimg/base:2022.09
     steps:
       - checkout
-#      - run:
-#          name: Build Application
+      - run:
+         command: | 
+          name: Build Application
  # deploy:
   #  docker:
    #   - image: cimg/base:2022.09
