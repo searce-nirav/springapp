@@ -7,7 +7,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Build Application
+          name: Application
           command: |
   test:
     docker:
@@ -15,8 +15,9 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Test Application
+          name: Application
           command: |
+         
           
            
 
