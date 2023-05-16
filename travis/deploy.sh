@@ -12,7 +12,7 @@ gcloud auth activate-service-account ${SA_NAME} --key-file ${HOME}/gcloud-servic
 gcloud config set project ${PROJECT_ID}
 
 #echo Y | sudo gcloud auth configure-docker
-gcloud auth configure-docker
+gcloud auth configure-docker -y
 docker-credential-gcr configure-docker
 docker build -t springapp-test:latest .
 docker tag springapp-test:latest gcr.io/${PROJECT_ID}/springapp-test:latest
