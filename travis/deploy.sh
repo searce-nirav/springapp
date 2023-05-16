@@ -16,7 +16,7 @@ echo Y | sudo gcloud auth configure-docker
 #gcloud artifacts locations list
 docker build -t springapp-test:latest .
 docker tag springapp-test:latest gcr.io/${PROJECT_ID}/springapp-test:latest
-docker push gcr.io/${PROJECT_ID}/springapp-test:latest
+gcloud docker -- push gcr.io/${PROJECT_ID}/springapp-test:latest
 
 #docker tag springapp-test:latest europe-west2-docker.pkg.dev/${PROJECT_ID}/travis-test/springapp-test:latest
 #docker push europe-west2-docker.pkg.dev/${PROJECT_ID}/travis-test/springapp-test:
