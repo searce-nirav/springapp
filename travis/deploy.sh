@@ -36,14 +36,15 @@ whoami
 #sudo useradd travis
 sudo usermod -a -G docker travis
 # newgrp docker
-# docker run hello-world
+
 
 #resolve config file error
-sudo chown travis:travis /home/travis/.docker -R
-sudo chmod g+rwx "/home/travis/.docker" -R
+sudo chown $(whoami):docker /home/$(whoami)/.docker/config.json
+sudo chmod -R g+rw "/home/travis/.docker"
 
 echo Y | sudo gcloud auth configure-docker
 
+docker run hello-world
 #1
 #gcloud -y auth configure-docker
 
