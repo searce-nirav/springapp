@@ -4,10 +4,7 @@ jobs:
     docker:
       - image: cimg/go:1.17
     steps:
-
       - checkout
-       
-
       - setup_remote_docker:
           version: 20.10.14
 
@@ -15,9 +12,9 @@ jobs:
          name: Build and Push
          command:  |
         
-           docker build -t newimage1 .
-           docker tag newimage1 us-central1-docker.pkg.dev/thematic-metric-381904/circle-ci/newimage1:$CIRCLE_SHA1
-           docker push us-central1-docker.pkg.dev/thematic-metric-381904/circle-ci/newimage1:$CIRCLE_SHA1
+          docker build -t newimage1 .
+          docker tag newimage1 us-central1-docker.pkg.dev/thematic-metric-381904/circle-ci/newimage1:$CIRCLE_SHA1
+          docker push us-central1-docker.pkg.dev/thematic-metric-381904/circle-ci/newimage1:$CIRCLE_SHA1
     #  - cloudrun/deploy:
      #     image: gcr.io/${GOOGLE_PROJECT_ID}/test-${CIRCLE_SHA1}
       #    platform: managed
