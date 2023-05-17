@@ -30,10 +30,10 @@ sudo usermod -a -G docker ${SA_NAME}
 # newgrp docker
 # docker run hello-world
 
-#echo Y | sudo gcloud auth configure-docker
+echo Y | sudo gcloud auth configure-docker
 
 #1
-gcloud auth configure-docker 
+#gcloud -y auth configure-docker
 
 
 #2
