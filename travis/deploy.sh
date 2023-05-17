@@ -39,14 +39,14 @@ sudo usermod -a -G docker travis
 echo Y | sudo gcloud auth configure-docker
 
 
-#2
-# VERSION=2.1.5
-# OS=linux  # or "darwin" for OSX, "windows" for Windows.
-# ARCH=amd64  # or "386" for 32-bit OSs, "arm64" for ARM 64.
+2
+VERSION=2.1.5
+OS=linux  # or "darwin" for OSX, "windows" for Windows.
+ARCH=amd64  # or "386" for 32-bit OSs, "arm64" for ARM 64.
 
-# curl -fsSL "https://github.com/GoogleCloudPlatform/docker-credential-gcr/releases/download/v${VERSION}/docker-credential-gcr_${OS}_${ARCH}-${VERSION}.tar.gz" \
-# | tar xz docker-credential-gcr \
-# && chmod +x docker-credential-gcr && sudo mv docker-credential-gcr /usr/bin/
+curl -fsSL "https://github.com/GoogleCloudPlatform/docker-credential-gcr/releases/download/v${VERSION}/docker-credential-gcr_${OS}_${ARCH}-${VERSION}.tar.gz" \
+| tar xz docker-credential-gcr \
+&& chmod +x docker-credential-gcr && sudo mv docker-credential-gcr /usr/bin/
 
 
 #3
@@ -55,7 +55,7 @@ docker-credential-gcr configure-docker
 
 sudo docker build -t springapp-test:latest .
 sudo docker tag springapp-test:latest us.gcr.io/${PROJECT_ID}/app-engine-tmp/app/my-first-service/ttl-18h/springapp-test:latest
-gcloud docker -- push us.gcr.io/${PROJECT_ID}/app-engine-tmp/app/my-first-service/ttl-18h/springapp-test:latest
+sudo docker push us.gcr.io/${PROJECT_ID}/app-engine-tmp/app/my-first-service/ttl-18h/springapp-test:latest
 
 #docker tag springapp-test:latest europe-west2-docker.pkg.dev/${PROJECT_ID}/travis-test/springapp-test:latest
 #docker push europe-west2-docker.pkg.dev/${PROJECT_ID}/travis-test/springapp-test:
