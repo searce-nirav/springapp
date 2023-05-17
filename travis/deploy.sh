@@ -4,7 +4,7 @@
 
 curl https://sdk.cloud.google.com | bash -s -- --disable-prompts > /dev/null
 export PATH=${HOME}/google-cloud-sdk/bin:${PATH}
-gcloud init --skip-diagnostics -y
+-- gcloud init --skip-diagnostics -y
 
 #gcloud --quiet components install kubectl
 
@@ -31,7 +31,7 @@ sudo usermod -a -G docker ${SA_NAME}
 #echo Y | sudo gcloud auth configure-docker
 
 #1
-gcloud auth configure-docker -y
+-- gcloud auth configure-docker -y
 
 
 #2
