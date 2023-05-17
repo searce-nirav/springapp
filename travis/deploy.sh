@@ -20,7 +20,7 @@ gcloud config set project ${PROJECT_ID}
 
 #add docker to group
 # sudo groupadd docker
-# sudo usermod -aG docker ${SA_NAME}
+sudo usermod -a -G docker ${SA_NAME}
 # newgrp docker
 # docker run hello-world
 
