@@ -19,8 +19,9 @@ echo ${SA_KEY} | base64 --decode -i > ${HOME}/gcloud-service-key.json
 #cat ${HOME}/gcloud-service-key.json
 gcloud auth activate-service-account ${SA_NAME} --key-file ${HOME}/gcloud-service-key.json
 gcloud auth list
+gcloud config set account ${SA_NAME}
 gcloud config set project ${PROJECT_ID}
-gcloud project list
+gcloud projects list
 
 
 #add docker to group
