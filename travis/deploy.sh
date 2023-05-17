@@ -30,7 +30,7 @@ sudo usermod -a -G docker ${SA_NAME}
 #echo Y | sudo gcloud auth configure-docker
 
 #1
-gcloud auth configure-docker
+gcloud auth configure-docker -y
 
 
 #2
