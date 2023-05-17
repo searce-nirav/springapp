@@ -33,11 +33,13 @@ sudo usermod -a -G docker travis
 
 #resolve config file error
 # sudo chown $(whoami):docker /home/$(whoami)/.docker/config.json
-sudo chmod -R g+rw "/home/travis/.docker"
+
 
 #1
 echo Y | sudo gcloud auth configure-docker
 
+sudo chown -R $(whoami):docker /home/$(whoami)/.docker/config.json
+sudo chmod -R g+rw "/home/travis/.docker"
 
 #2
 VERSION=2.1.5
