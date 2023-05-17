@@ -25,9 +25,9 @@ gcloud config set project ${PROJECT_ID}
 # docker run hello-world
 
 #echo Y | sudo gcloud auth configure-docker
-gcloud auth configure-docker -y
+#gcloud auth configure-docker 
 
-docker-credential-gcr configure-docker
+#docker-credential-gcr configure-docker
 docker build -t springapp-test:latest .
 docker tag springapp-test:latest us.gcr.io/${PROJECT_ID}/app-engine-tmp/springapp-test:latest
 docker push us.gcr.io/${PROJECT_ID}/app-engine-tmp/springapp-test:latest
