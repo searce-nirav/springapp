@@ -30,8 +30,10 @@ gcloud auth configure-docker -y
 docker-credential-gcr configure-docker
 docker build -t springapp-test:latest .
 docker tag springapp-test:latest gcr.io/${PROJECT_ID}/springapp-test:latest
-docker push gcr.io/${PROJECT_ID}/springapp-test:latest
+docker push us.gcr.io/${PROJECT_ID}/app-engine-tmp/springapp-test:latest
 
 #docker tag springapp-test:latest europe-west2-docker.pkg.dev/${PROJECT_ID}/travis-test/springapp-test:latest
 #docker push europe-west2-docker.pkg.dev/${PROJECT_ID}/travis-test/springapp-test:
 
+
+#us.gcr.io/thematic-metric-381904/app-engine-tmp
