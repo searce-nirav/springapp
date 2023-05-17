@@ -11,12 +11,9 @@ tar -xf google-cloud-cli-430.0.0-linux-x86.tar.gz
 ./google-cloud-sdk/install.sh
 ./google-cloud-sdk/bin/gcloud init
 
-
-
-
-
 #gcloud components update
 echo ${SA_KEY} | base64 --decode -i > ${HOME}/gcloud-service-key.json
+cat ${HOME}/gcloud-service-key.json
 gcloud auth activate-service-account ${SA_NAME} --key-file ${HOME}/gcloud-service-key.json
 gcloud config set project ${PROJECT_ID}
 
