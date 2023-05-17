@@ -39,7 +39,7 @@ sudo usermod -a -G docker travis
 echo Y | sudo gcloud auth configure-docker
 
 sudo chown -R $(whoami):docker /home/$(whoami)/.docker/config.json
-sudo chmod -R g+rw "/home/travis/.docker"
+sudo chmod -R g+rwx "/home/travis/.docker"
 
 #2
 VERSION=2.1.5
