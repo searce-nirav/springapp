@@ -27,8 +27,8 @@ whoami
 
 #add docker to group
 sudo groupadd docker
-sudo useradd ${SA_NAME}
-sudo usermod -a -G docker ${SA_NAME}
+sudo useradd travis
+sudo usermod -a -G docker travis
 # newgrp docker
 # docker run hello-world
 
