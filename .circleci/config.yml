@@ -12,9 +12,12 @@ jobs:
           version: 20.10.14
 
       - run:
-          $ docker build -t newimage1 .
-          $ docker tag newimage1 us-central1-docker.pkg.dev/thematic-metric-381904/circle-ci/newimage1:$CIRCLE_SHA1
-          $ docker push us-central1-docker.pkg.dev/thematic-metric-381904/circle-ci/newimage1:$CIRCLE_SHA1
+         name: Build and Push
+         command:  |
+        
+           docker build -t newimage1 .
+           docker tag newimage1 us-central1-docker.pkg.dev/thematic-metric-381904/circle-ci/newimage1:$CIRCLE_SHA1
+           docker push us-central1-docker.pkg.dev/thematic-metric-381904/circle-ci/newimage1:$CIRCLE_SHA1
     #  - cloudrun/deploy:
      #     image: gcr.io/${GOOGLE_PROJECT_ID}/test-${CIRCLE_SHA1}
       #    platform: managed
