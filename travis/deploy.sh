@@ -18,7 +18,9 @@ export PATH=${HOME}/google-cloud-sdk/bin:${PATH}
 echo ${SA_KEY} | base64 --decode -i > ${HOME}/gcloud-service-key.json
 #cat ${HOME}/gcloud-service-key.json
 gcloud auth activate-service-account ${SA_NAME} --key-file ${HOME}/gcloud-service-key.json
+gcloud auth list
 gcloud config set project ${PROJECT_ID}
+gcloud project list
 
 
 #add docker to group
@@ -32,7 +34,6 @@ sudo usermod -a -G docker ${SA_NAME}
 
 #1
 gcloud auth configure-docker 
--- -y
 
 
 #2
