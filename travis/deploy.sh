@@ -25,17 +25,17 @@ gcloud projects list
 
 whoami
 
-#resolve config file error
-sudo chown travis:travis /home/travis/.docker -R
-sudo chmod g+rwx "/home/travis/.docker" -R
-
 
 #add docker to group
-sudo groupadd docker
-sudo useradd travis
+#sudo groupadd docker
+#sudo useradd travis
 sudo usermod -a -G docker travis
 # newgrp docker
 # docker run hello-world
+
+#resolve config file error
+sudo chown travis:travis /home/travis/.docker -R
+sudo chmod g+rwx "/home/travis/.docker" -R
 
 echo Y | sudo gcloud auth configure-docker
 
