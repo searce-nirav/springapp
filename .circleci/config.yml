@@ -1,24 +1,31 @@
-
 version: 2.1
 jobs:
-  build_and_deploy_job1:
+  build_and_deploy_job:
     docker:
-      - image: circleci/cci-demo-docker-primary:0.0.1
+      - image: cimg/go:1.17
     steps:
+
       - checkout
-      - cloudrun/init
-      - cloudrun/build:
-          tag: gcr.io/${GOOGLE_PROJECT_ID}/test-${CIRCLE_SHA1}
-      - cloudrun/deploy:
-          image: gcr.io/${GOOGLE_PROJECT_ID}/test-${CIRCLE_SHA1}
-          platform: managed
-          region: us-central1
-          service-name: example-service
-          unauthenticated: true
-orbs:
-  cloudrun: circleci/gcp-cloud-run@1.0.0
+       
+
+      - setup_remote_docker:
+          version: 20.10.14
+
+      - run:
+          $ docker build -t newimage1 .
+          $ docker tag newimage1 us-central1-docker.pkg.dev/thematic-metric-381904/circle-ci/newimage1:$CIRCLE_SHA1
+          $ docker push us-central1-docker.pkg.dev/thematic-metric-381904/circle-ci/newimage1:$CIRCLE_SHA1
+    #  - cloudrun/deploy:
+     #     image: gcr.io/${GOOGLE_PROJECT_ID}/test-${CIRCLE_SHA1}
+      #    platform: managed
+       #   region: us-central1
+        #  service-name: example-service
+         # unauthenticated: true
+#orbs:
+  #cloudrun: circleci/gcp-cloud-run@1.0.0
 
 workflows:
   build_and_deploy_to_managed_workflow:
     jobs:
-      - build_and_deploy_job1
+      - build_and_deploy_job
+
