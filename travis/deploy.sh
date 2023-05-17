@@ -23,13 +23,9 @@ gcloud config set account ${SA_NAME}
 gcloud config set project ${PROJECT_ID}
 gcloud projects list
 
-echo Y | gcloud components install docker-credential-gcr
-ls /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin
-ln -s \
-    /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin/docker-credential-gcr \
-    /usr/local/bin/
+echo Y | gcloud components install docker-credential-gcloud
 
-docker-credential-gcr configure-docker
+
 
 
 whoami
@@ -63,7 +59,7 @@ echo Y | sudo gcloud auth configure-docker
 
 
 #3
-# docker-credential-gcr configure-docker
+docker-credential-gcr configure-docker
 
 
 docker build -t springapp-test:latest .
