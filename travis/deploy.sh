@@ -22,7 +22,7 @@ gcloud auth list
 gcloud config set account ${SA_NAME}
 gcloud config set project ${PROJECT_ID}
 gcloud projects list
-gcloud components install docker-credential-gcr
+echo Y | gcloud components install docker-credential-gcr
 
 whoami
 
