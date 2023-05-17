@@ -4,7 +4,7 @@
 
 curl https://sdk.cloud.google.com | bash -s -- --disable-prompts > /dev/null
 export PATH=${HOME}/google-cloud-sdk/bin:${PATH}
-gcloud init
+gcloud init --skip-diagnostics -y
 
 #gcloud --quiet components install kubectl
 
