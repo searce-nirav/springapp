@@ -19,10 +19,10 @@ gcloud config set project ${PROJECT_ID}
 
 
 #add docker to group
-sudo groupadd docker
-sudo usermod -aG docker ${SA_NAME}
-newgrp docker
-docker run hello-world
+# sudo groupadd docker
+# sudo usermod -aG docker ${SA_NAME}
+# newgrp docker
+# docker run hello-world
 
 #echo Y | sudo gcloud auth configure-docker
 gcloud auth configure-docker -y
