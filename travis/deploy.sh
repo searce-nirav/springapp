@@ -23,6 +23,7 @@ gcloud config set account ${SA_NAME}
 gcloud config set project ${PROJECT_ID}
 gcloud projects list
 
+whoami
 
 #add docker to group
 sudo groupadd docker
