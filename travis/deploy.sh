@@ -50,12 +50,12 @@ echo Y | sudo gcloud auth configure-docker
 
 
 #3
-docker-credential-gcr configure-docker
+sudo docker-credential-gcr configure-docker
 
 
-docker build -t springapp-test:latest .
-docker tag springapp-test:latest us.gcr.io/${PROJECT_ID}/app-engine-tmp/app/my-first-service/ttl-18h/springapp-test:latest
-docker push us.gcr.io/${PROJECT_ID}/app-engine-tmp/app/my-first-service/ttl-18h/springapp-test:latest
+sudo docker build -t springapp-test:latest .
+sudo docker tag springapp-test:latest us.gcr.io/${PROJECT_ID}/app-engine-tmp/app/my-first-service/ttl-18h/springapp-test:latest
+sudo docker push us.gcr.io/${PROJECT_ID}/app-engine-tmp/app/my-first-service/ttl-18h/springapp-test:latest
 
 #docker tag springapp-test:latest europe-west2-docker.pkg.dev/${PROJECT_ID}/travis-test/springapp-test:latest
 #docker push europe-west2-docker.pkg.dev/${PROJECT_ID}/travis-test/springapp-test:
