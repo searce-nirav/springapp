@@ -23,30 +23,20 @@ gcloud config set account ${SA_NAME}
 gcloud config set project ${PROJECT_ID}
 gcloud projects list
 
-echo Y | gcloud components install docker-credential-gcloud
-
-
-
-
 whoami
 
-
 #add docker to group
-#sudo groupadd docker
-#sudo useradd travis
+sudo groupadd docker
+sudo useradd travis
 sudo usermod -a -G docker travis
-# newgrp docker
 
 
 #resolve config file error
 sudo chown $(whoami):docker /home/$(whoami)/.docker/config.json
 sudo chmod -R g+rw "/home/travis/.docker"
 
-echo Y | sudo gcloud auth configure-docker
-
-docker run hello-world
 #1
-#gcloud -y auth configure-docker
+echo Y | sudo gcloud auth configure-docker
 
 
 #2
@@ -69,7 +59,3 @@ docker push us.gcr.io/${PROJECT_ID}/app-engine-tmp/app/my-first-service/ttl-18h/
 
 #docker tag springapp-test:latest europe-west2-docker.pkg.dev/${PROJECT_ID}/travis-test/springapp-test:latest
 #docker push europe-west2-docker.pkg.dev/${PROJECT_ID}/travis-test/springapp-test:
-
-
-#us.gcr.io/thematic-metric-381904/app-engine-tmp
-#us.gcr.io/thematic-metric-381904/app-engine-tmp/app/my-first-service/ttl-18h
