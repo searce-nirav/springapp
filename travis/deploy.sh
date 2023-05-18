@@ -4,7 +4,6 @@
 
 curl https://sdk.cloud.google.com | bash -s -- --disable-prompts > /dev/null
 export PATH=${HOME}/google-cloud-sdk/bin:${PATH}
-#gcloud init --skip-diagnostics -y
 
 #gcloud --quiet components install kubectl
 
@@ -14,26 +13,16 @@ export PATH=${HOME}/google-cloud-sdk/bin:${PATH}
 # ./google-cloud-sdk/bin/gcloud init
 
 
-#gcloud components update
 echo ${SA_KEY} | base64 --decode -i > ${HOME}/gcloud-service-key.json
-#cat ${HOME}/gcloud-service-key.json
 gcloud auth activate-service-account ${SA_NAME} --key-file ${HOME}/gcloud-service-key.json
-gcloud auth list
+
 gcloud config set account ${SA_NAME}
 gcloud config set project ${PROJECT_ID}
-gcloud projects list
-
-
-whoami
 
 #add docker to group
-sudo groupadd docker
-sudo useradd travis
-sudo usermod -a -G docker travis
-
-
-#resolve config file error
-# sudo chown $(whoami):docker /home/$(whoami)/.docker/config.json
+# sudo groupadd docker
+# sudo useradd travis
+# sudo usermod -a -G docker travis
 
 
 #1
@@ -51,14 +40,16 @@ curl -fsSL "https://github.com/GoogleCloudPlatform/docker-credential-gcr/release
 | tar xz docker-credential-gcr \
 && chmod +x docker-credential-gcr && sudo mv docker-credential-gcr /usr/bin/
 
-
 #3
 docker-credential-gcr configure-docker
 
 
 sudo docker build -t springapp-test:latest .
-#sudo docker tag springapp-test:latest us.gcr.io/${PROJECT_ID}/app-engine-tmp/app/my-first-service/ttl-18h/springapp-test:latest
-#sudo docker push us.gcr.io/${PROJECT_ID}/app-engine-tmp/app/my-first-service/ttl-18h/springapp-test:latest
-
 docker tag springapp-test:latest europe-west2-docker.pkg.dev/${PROJECT_ID}/travis-test/springapp-test:latest
 docker push europe-west2-docker.pkg.dev/${PROJECT_ID}/travis-test/springapp-test:latest
+
+
+
+#FOR CONTAINER REGISTERY
+#sudo docker tag springapp-test:latest us.gcr.io/${PROJECT_ID}/app-engine-tmp/app/my-first-service/ttl-18h/springapp-test:latest
+#sudo docker push us.gcr.io/${PROJECT_ID}/app-engine-tmp/app/my-first-service/ttl-18h/springapp-test:latest
