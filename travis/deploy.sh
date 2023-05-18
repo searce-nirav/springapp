@@ -24,9 +24,6 @@ gcloud config set project ${PROJECT_ID}
 gcloud projects list
 
 
-rmdir ~/.docker/
-
-
 whoami
 
 #add docker to group
@@ -42,8 +39,8 @@ sudo usermod -a -G docker travis
 #1
 echo Y | sudo gcloud auth configure-docker
 
-sudo chown -R $(whoami):docker /home/$(whoami)/.docker/config.json
-sudo chmod -R g+rwx "/home/travis/.docker"
+sudo chown -R docker:docker /home/travis/.docker
+sudo chmod 777 "/home/travis/.docker"
 
 #2
 VERSION=2.1.5
