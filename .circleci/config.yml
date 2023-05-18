@@ -38,7 +38,7 @@ jobs:
       - run:
           name: Push Docker image to Artifact Registry
           command: |
-            docker push us-central1-docker.pkg.dev/thematic-metric-381904/image1:latest
+            docker push us-central1-docker.pkg.dev/thematic-metric-381904/circle-ci:latest
 
 workflows:
   version: 2
