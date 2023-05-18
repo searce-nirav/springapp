@@ -26,7 +26,7 @@ gcloud config set project ${PROJECT_ID}
 
 
 #1
-echo Y | sudo gcloud auth configure-docker europe-west2-docker.pkg.dev
+echo Y | gcloud auth configure-docker europe-west2-docker.pkg.dev
 
 sudo chown -R travis:docker /home/travis/.docker
 sudo chmod 777 "/home/travis/.docker"
@@ -44,7 +44,7 @@ curl -fsSL "https://github.com/GoogleCloudPlatform/docker-credential-gcr/release
 docker-credential-gcr configure-docker
 
 
-sudo docker build -t springapp-test:latest .
+docker build -t springapp-test:latest .
 docker tag springapp-test:latest europe-west2-docker.pkg.dev/${PROJECT_ID}/travis-test/springapp-test:latest
 docker push europe-west2-docker.pkg.dev/${PROJECT_ID}/travis-test/springapp-test:latest
 
