@@ -16,6 +16,7 @@ jobs:
       - run:
           name: Authenticate with Google Cloud
           command: |
+            apt install python3.8 -y
             curl https://sdk.cloud.google.com | bash -s -- --disable-prompts > /dev/null
             export PATH=${HOME}/google-cloud-sdk/bin:${PATH}
             echo $GOOGLE_SERVICE_KEY > ${HOME}/gcloud-service-key.json
