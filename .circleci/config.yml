@@ -2,8 +2,7 @@ version: 2.1
 executors:
   docker-executor:
     docker:
-      - image: circleci/cci-demo-docker-primary:0.0.1
-
+      - image: circleci/python:3.8
 jobs:
   build_and_deploy:
     executor: docker-executor
@@ -16,7 +15,6 @@ jobs:
       - run:
           name: Authenticate with Google Cloud
           command: |
-            apt install python3.8 -y
             curl https://sdk.cloud.google.com | bash -s -- --disable-prompts > /dev/null
             export PATH=${HOME}/google-cloud-sdk/bin:${PATH}
             echo $GOOGLE_SERVICE_KEY > ${HOME}/gcloud-service-key.json
