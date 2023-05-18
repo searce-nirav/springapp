@@ -22,12 +22,13 @@ jobs:
             #gcloud auth activate-service-account $GOOGLE_SERVICE_KEY --key-file $HOME/gcloud-service-key.json
             gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
             gcloud config set project $GOOGLE_PROJECT_ID
+            gcloud auth login 
             gcloud auth configure-docker us-central1-docker.pkg.dev
       - run:
           name: Build and tag Docker image
           command: |
             docker build -t image1:latest .  
-            docker tag image1:latest us-central1-docker.pkg.dev/thematic-metric-381904/circle-ci/image2:latest
+            docker tag image1:latest us-central1-docker.pkg.dev/thematic-metric-381904/circle-ci/image1:latest
     
 
     #  - run:
@@ -38,7 +39,7 @@ jobs:
       - run:
           name: Push Docker image to Artifact Registry
           command: |
-            docker push us-central1-docker.pkg.dev/thematic-metric-381904/circle-ci/image2:latest
+            docker push us-central1-docker.pkg.dev/thematic-metric-381904/circle-ci/image1:latest
 
 workflows:
   version: 2
