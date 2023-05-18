@@ -16,10 +16,10 @@ jobs:
       - run:
           name: Authenticate with Google Cloud
           command: |
-           echo ${GOOGLE_SERVICE_KEY} | base64 --decode -i > ${HOME}/gcloud-service-key.json
+            echo $GOOGLE_SERVICE_KEY | base64 --decode -i > ${HOME}/gcloud-service-key.json
               #cat ${HOME}/gcloud-service-key.json
             gcloud auth activate-service-account $GOOGLE_SERVICE_KEY --key-file $HOME/gcloud-service-key.json
-             #gcloud auth activate-service-account --key-file=$GOOGLE_SERVICE_KEY
+            gcloud auth activate-service-account --key-file=$GOOGLE_SERVICE_KEY
             gcloud config set project $GOOGLE_PROJECT_ID
 
       - run:
