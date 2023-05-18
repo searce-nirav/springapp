@@ -1,0 +1,33 @@
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "spring-app"
+  namespace: "default"
+  labels:
+    app: "spring-app"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "spring-app"
+  template:
+    metadata:
+      labels:
+        app: "spring-app"
+    spec:
+      containers:
+      - name: "spring-app"
+        image: "push europe-west2-docker.pkg.dev/project_id/travis-test/springapp-test:latest"
+--- 
+# A load balancer is type of service which will expose an IP and route the requests to this IP to the internal pods.     
+apiVersion: v1
+kind: Service
+metadata:
+  name: spring-app
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: spring-app
