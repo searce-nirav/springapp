@@ -1,31 +1,42 @@
 version: 2.1
-jobs:
-  build_and_deploy_job:
+executors:
+  docker-executor:
     docker:
-      - image: cimg/go:1.17
+      - image: circleci/python:3.8
+
+jobs:
+  build_and_deploy:
+    executor: docker-executor
     steps:
       - checkout
+
       - setup_remote_docker:
-          version: 20.10.14
+          version: 20.10.7
 
       - run:
-         name: Build and Push
-         command:  |
-        
-          docker build -t newimage1 .
-          docker tag newimage1 us-central1-docker.pkg.dev/thematic-metric-381904/circle-ci/newimage1:$CIRCLE_SHA1
-          docker push us-central1-docker.pkg.dev/thematic-metric-381904/circle-ci/newimage1:$CIRCLE_SHA1
-    #  - cloudrun/deploy:
-     #     image: gcr.io/${GOOGLE_PROJECT_ID}/test-${CIRCLE_SHA1}
-      #    platform: managed
-       #   region: us-central1
-        #  service-name: example-service
-         # unauthenticated: true
-#orbs:
-  #cloudrun: circleci/gcp-cloud-run@1.0.0
+          name: Authenticate with Google Cloud
+          command: |
+            gcloud auth activate-service-account --key-file=$GOOGLE_SERVICE_KEY
+            gcloud config set project $GOOGLE_PROJECT_ID
+
+      - run:
+          name: Build and tag Docker image
+          command: |
+            docker build -t image1:latest .
+            docker tag image1:latest gcr.io/$GOOGLE_PROJECT_ID/image1:latest
+
+      - run:
+          name: Authenticate with Artifact Registry
+          command: |
+            gcloud auth configure-docker us-central1-docker.pkg.dev
+
+      - run:
+          name: Push Docker image to Artifact Registry
+          command: |
+            docker push us-central1-docker.pkg.dev/$GOOGLE_PROJECT_ID/thematic-metric-381904/circle-ci/image1:latest
 
 workflows:
-  build_and_deploy_to_managed_workflow:
+  version: 2
+  build_and_deploy:
     jobs:
-      - build_and_deploy_job
-
+      - build_and_deploy
