@@ -41,8 +41,17 @@ jobs:
             gcloud config set project $GOOGLE_PROJECT_ID
             echo Y | gcloud auth configure-docker us-central1-docker.pkg.dev
             docker push us-central1-docker.pkg.dev/thematic-metric-381904/circle-ci/image1:latest
-
-      
+            - cloudrun/init
+      - cloudrun/build:
+          tag: us-central1-docker.pkg.dev/thematic-metric-381904/circle-ci/test-${CIRCLE_SHA1}
+      - cloudrun/deploy:
+          image: us-central1-docker.pkg.dev/thematic-metric-381904/circle-ci/test-${CIRCLE_SHA1}
+          platform: managed
+          region: us-central1
+          service-name: example-service1
+          unauthenticated: true
+orbs:
+  cloudrun: circleci/gcp-cloud-run@1.0.0
 
 workflows:
   version: 2
