@@ -12,7 +12,7 @@ before_install:
 
 script:
   - ls -ll
-  - sh travis/deploy.sh
+  - bash travis/deploy.sh
 
 
 
