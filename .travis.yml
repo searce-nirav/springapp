@@ -12,7 +12,9 @@ before_install:
 
 script:
   - ls -ll
-  - travis/deploy.sh
+  - sh travis/deploy.sh
+
+
 
 notifications:
   email:
