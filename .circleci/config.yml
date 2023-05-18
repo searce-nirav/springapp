@@ -28,6 +28,7 @@ jobs:
           command: |
             docker build -t image1:latest .  
             docker tag image1:latest us-central1-docker.pkg.dev/thematic-metric-381904/circle-ci:latest
+    
 
     #  - run:
      #     name: Authenticate with Artifact Registry
