@@ -21,7 +21,7 @@ jobs:
             echo $GOOGLE_SERVICE_KEY > ${HOME}/gcloud-service-key.json
               #cat ${HOME}/gcloud-service-key.json
             #gcloud auth activate-service-account $GOOGLE_SERVICE_KEY --key-file $HOME/gcloud-service-key.json
-            gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
+            gcloud auth activate-service-account $GOOGLE_SA_NAME --key-file=${HOME}/gcloud-service-key.json
             gcloud config set project $GOOGLE_PROJECT_ID
             gcloud auth configure-docker us-central1-docker.pkg.dev
       - run:
