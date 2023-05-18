@@ -39,7 +39,7 @@ sudo usermod -a -G docker travis
 #1
 echo Y | sudo gcloud auth configure-docker
 
-sudo chown -R docker:docker /home/travis/.docker
+sudo chown -R travis:docker /home/travis/.docker
 sudo chmod 777 "/home/travis/.docker"
 
 #2
