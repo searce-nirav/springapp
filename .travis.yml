@@ -15,23 +15,9 @@ script:
   - travis/deploy.sh
 
 
-
 notifications:
   email:
     recipients:
       - yug.soni@searce.com
     on_success: never
     on_failure: always
-
-
-
-
-#    skip_cleanup: true
-#    on:
-#      all_branches: true
-#before_install:
-#  - curl https://sdk.cloud.google.com | bash > /dev/null
-#  - source "$HOME/google-cloud-sdk/path.bash.inc"
-#  - gcloud config set project ${PROJECT_ID}
-#  - gcloud config set auth/impersonate_service_account ${SA_NAME}
-#  - gcloud auth configure-docker \ europe-west2-docker.pkg.dev
