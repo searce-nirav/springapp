@@ -42,6 +42,7 @@ jobs:
             echo Y | gcloud auth configure-docker us-central1-docker.pkg.dev
             docker push us-central1-docker.pkg.dev/thematic-metric-381904/circle-ci/image1:latest
       - cloudrun/init
+      
       - cloudrun/build:
           tag: us-central1-docker.pkg.dev/thematic-metric-381904/circle-ci/test-${CIRCLE_SHA1}
       - cloudrun/deploy:
