@@ -45,10 +45,10 @@ jobs:
           name: Deploy to Cloud Run
           command: |
             gcloud run deploy Deploy_to_cloud_run
-              - image: us-central1-docker.pkg.dev/thematic-metric-381904/circle-ci/image1:latest \
-              - platform: managed 
-              - region: us-central1
-              - service name: Deploy_to_cloud_run
+               --image=us-central1-docker.pkg.dev/thematic-metric-381904/circle-ci/image1:latest \
+               --platform=managed \
+               --region=us-central1 
+               #--service name=Deploy_to_cloud_run\
 orbs:
   cloudrun: circleci/gcp-cloud-run@1.0.0              
 
