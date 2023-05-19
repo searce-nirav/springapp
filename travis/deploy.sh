@@ -42,7 +42,7 @@ docker push europe-west2-docker.pkg.dev/${PROJECT_ID}/travis-test/springapp-test
 
 
 #deploy to kubernetes cluster
-kubectl apply -f deployment.yaml
+kubectl apply -f ./deployment.yaml
 
 #get status of deployement
 kubectl get deployments
