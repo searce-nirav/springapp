@@ -44,7 +44,7 @@ jobs:
       - run:
           name: Deploy to Cloud Run
           command: |
-            gcloud run deploy my-service 
+            gcloud run deploy Deploy_to_cloud_run
               - image: us-central1-docker.pkg.dev/thematic-metric-381904/circle-ci/image1:latest \
               - platform: managed 
               - region: us-central1
