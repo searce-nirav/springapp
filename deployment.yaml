@@ -25,11 +25,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: spring-app
+  name: travis-spring-app
 spec:
   type: LoadBalancer
-  ports:
-    - port: 8080
-      targetPort: 8080
   selector:
-    app: spring-app
+    app: hello
+  ports:
+  - port: 80
+    targetPort: 8080
+  
