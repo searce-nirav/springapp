@@ -47,6 +47,7 @@ jobs:
             curl https://sdk.cloud.google.com | bash
             exec -l $SHELL
             gcloud --version
+            echo Y |
       - run:
           name: Deploy to Cloud Run
           command: |
