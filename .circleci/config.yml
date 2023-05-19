@@ -33,6 +33,8 @@ jobs:
           name: Push Docker image to Artifact Registry
           command: |
             curl https://sdk.cloud.google.com | bash -s -- --disable-prompts > /dev/null
+            exec -l $SHELL
+            gcloud --version
             export PATH=${HOME}/google-cloud-sdk/bin:${PATH}
             echo $GOOGLE_SERVICE_KEY > ${HOME}/gcloud-service-key.json
               #cat ${HOME}/gcloud-service-key.json
@@ -41,21 +43,15 @@ jobs:
             gcloud config set project $GOOGLE_PROJECT_ID
             echo Y | gcloud auth configure-docker us-central1-docker.pkg.dev
             docker push us-central1-docker.pkg.dev/thematic-metric-381904/circle-ci/image1:latest
-      - run:
-          name: Install Google Cloud SDK
-          command: |
-            curl https://sdk.cloud.google.com | bash
-            exec -l $SHELL
-            gcloud --version
-            echo Y |
+      
       - run:
           name: Deploy to Cloud Run
           command: |
             gcloud run deploy my-service \
               --image=us-central1-docker.pkg.dev/thematic-metric-381904/circle-ci/image1:latest \
               --platform=managed \
-              --region=us-central1
-
+              --region=us-central1\
+              --service name=deploy
             
 
 workflows:
