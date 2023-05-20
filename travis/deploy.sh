@@ -45,7 +45,7 @@ docker push europe-west2-docker.pkg.dev/${PROJECT_ID}/travis-test/springapp-test
 
 
 #deploy to cloud run
-gcloud run services replace deployment.yaml
+gcloud run services replace deployment.yaml --region us-central1
 
 
 
