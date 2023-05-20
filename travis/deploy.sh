@@ -41,15 +41,23 @@ docker tag springapp-test:latest europe-west2-docker.pkg.dev/${PROJECT_ID}/travi
 docker push europe-west2-docker.pkg.dev/${PROJECT_ID}/travis-test/springapp-test:latest
 
 
+
+
+
+#deploy to cloud run
+gcloud run services replace deployment.yaml
+
+
+
 #deploy to kubernetes cluster
-kubectl apply -f ./deployment.yaml
+# kubectl apply -f ./deployment.yaml
 
-#get status of deployement
-kubectl get deployments
+# #get status of deployement
+# kubectl get deployments
 
-kubectl get pods
+# kubectl get pods
 
-kubectl get services
+# kubectl get services
 
 #FOR CONTAINER REGISTERY
 #sudo docker tag springapp-test:latest us.gcr.io/${PROJECT_ID}/app-engine-tmp/app/my-first-service/ttl-18h/springapp-test:latest
