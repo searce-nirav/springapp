@@ -46,3 +46,5 @@ spec:
     spec:
       containers:
       - image: europe-west2-docker.pkg.dev/thematic-metric-381904/travis-test/springapp-test:latest
+        ports:
+        - containerPort: 8080
