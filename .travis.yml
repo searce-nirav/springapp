@@ -3,12 +3,22 @@ language: bash
 services:
   - docker
 
-before_install:
-  - chmod +x travis/deploy.sh
 
-# cache:
-#   directories:
-#     - "$HOME/google-cloud-sdk/"
+cache:
+  directories:
+    - "$HOME/google-cloud-sdk/"
+
+
+before_install:
+- if [ ! -d $HOME/google-cloud-sdk/bin ]; then
+    rm -rf $HOME/google-cloud-sdk;
+    curl https://sdk.cloud.google.com | bash > /dev/null;
+  fi
+- source $HOME/google-cloud-sdk/path.bash.inc
+- gcloud version
+- chmod +x travis/deploy.sh
+
+
 
 script:
   - ls -ll

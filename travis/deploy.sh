@@ -2,8 +2,8 @@
 #gcloud version || true
 #if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; export CLOUDSDK_CORE_DISABLE_PROMPTS=1; curl https://sdk.cloud.google.com | bash; fi
 
-curl https://sdk.cloud.google.com | bash -s -- --disable-prompts > /dev/null
-export PATH=${HOME}/google-cloud-sdk/bin:${PATH}
+# curl https://sdk.cloud.google.com | bash -s -- --disable-prompts > /dev/null
+# export PATH=${HOME}/google-cloud-sdk/bin:${PATH}
 #gcloud --quiet components install kubectl
 
 # curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-430.0.0-linux-x86_64.tar.gz
@@ -24,16 +24,16 @@ gcloud config set project ${PROJECT_ID}
 echo Y | gcloud auth configure-docker europe-west2-docker.pkg.dev
 
 #2
-VERSION=2.1.5
-OS=linux
-ARCH=amd64
+# VERSION=2.1.5
+# OS=linux
+# ARCH=amd64
 
-curl -fsSL "https://github.com/GoogleCloudPlatform/docker-credential-gcr/releases/download/v${VERSION}/docker-credential-gcr_${OS}_${ARCH}-${VERSION}.tar.gz" \
-| tar xz docker-credential-gcr \
-&& chmod +x docker-credential-gcr && sudo mv docker-credential-gcr /usr/bin/
+# curl -fsSL "https://github.com/GoogleCloudPlatform/docker-credential-gcr/releases/download/v${VERSION}/docker-credential-gcr_${OS}_${ARCH}-${VERSION}.tar.gz" \
+# | tar xz docker-credential-gcr \
+# && chmod +x docker-credential-gcr && sudo mv docker-credential-gcr /usr/bin/
 
-#3
-docker-credential-gcr configure-docker
+# #3
+# docker-credential-gcr configure-docker
 
 
 docker build -t springapp-test:latest .
