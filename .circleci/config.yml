@@ -54,7 +54,7 @@ jobs:
            # --region=us-central1 \
            # --allow-unauthenticated
             
-
+  
 workflows:
   version: 2
   build_and_deploy: 
