@@ -14,9 +14,7 @@ spec:
     spec:
       containers:
       - name: spring-app
-        image: 
-             repository: europe-west2-docker.pkg.dev/thematic-metric-381904/travis-test
-             tag: latest
+        image: europe-west2-docker.pkg.dev/thematic-metric-381904/travis-test/springapp-test:latest
         - containerPort: 8080
         env:
           - name: PORT

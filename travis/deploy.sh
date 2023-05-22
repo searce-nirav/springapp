@@ -49,7 +49,7 @@ kubectl get deployments
 
 kubectl get pods
 
-# kubectl get services
+kubectl get services
 
 
 #FOR CONTAINER REGISTERY
