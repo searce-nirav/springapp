@@ -46,6 +46,7 @@ jobs:
             --region=us-central1 \
             --platform=managed \ 
             --allow-unauthenticated \
+            --ingress=all
       
       #- run:
       #    name: Deploy to Cloud Run
