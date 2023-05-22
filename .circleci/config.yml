@@ -44,8 +44,8 @@ jobs:
             gcloud run deploy circleci \
             --image=us-central1-docker.pkg.dev/thematic-metric-381904/circle-ci/image1:latest \
             --region=us-central1 \
-            --platform=managed \ 
             --allow-unauthenticated \
+            --platform=managed \ 
             --service-account=$GOOGLE_SA_NAME
           
       
