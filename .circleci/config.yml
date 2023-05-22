@@ -44,7 +44,7 @@ jobs:
             gcloud run deploy circleci \
             --image=us-central1-docker.pkg.dev/thematic-metric-381904/circle-ci/image1:latest \
             --region=us-central1 \
-            --allow=unauthenticated
+            --allow-unauthenticated
       
       #- run:
       #    name: Deploy to Cloud Run
