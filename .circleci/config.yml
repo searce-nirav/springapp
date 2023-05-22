@@ -33,8 +33,7 @@ jobs:
           name: Push Docker image to Artifact Registry
           command: |
             curl https://sdk.cloud.google.com | bash -s -- --disable-prompts > /dev/null
-            exec -l $SHELL
-            gcloud --version
+            
             export PATH=${HOME}/google-cloud-sdk/bin:${PATH}
             echo $GOOGLE_SERVICE_KEY > ${HOME}/gcloud-service-key.json
               #cat ${HOME}/gcloud-service-key.json
@@ -51,7 +50,8 @@ jobs:
               --image=us-central1-docker.pkg.dev/thematic-metric-381904/circle-ci/image1:latest \
               --platform=managed \
               --region=us-central1\
-              --service name=deploy
+              --service name=deploy\
+              --allow-unauthenticated
             
 
 workflows:
