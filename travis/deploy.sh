@@ -1,15 +1,6 @@
 #!/usr/bin/env bash
-#gcloud version || true
-#if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; export CLOUDSDK_CORE_DISABLE_PROMPTS=1; curl https://sdk.cloud.google.com | bash; fi
 
-# curl https://sdk.cloud.google.com | bash -s -- --disable-prompts > /dev/null
-# export PATH=${HOME}/google-cloud-sdk/bin:${PATH}
-#gcloud --quiet components install kubectl
-
-# curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-430.0.0-linux-x86_64.tar.gz
-# tar -xf google-cloud-cli-430.0.0-linux-x86.tar.gz
-# ./google-cloud-sdk/install.sh
-# ./google-cloud-sdk/bin/gcloud init
+gcloud --quiet components install kubectl
 
 
 echo ${SA_KEY} | base64 --decode -i > ${HOME}/gcloud-service-key.json
@@ -17,7 +8,7 @@ gcloud auth activate-service-account ${SA_NAME} --key-file ${HOME}/gcloud-servic
 
 
 gcloud config set project ${PROJECT_ID}
-#gcloud container clusters get-credentials ${CLUSTER_NAME} --zone asia-south1-a --project ${PROJECT_ID}
+gcloud container clusters get-credentials ${CLUSTER_NAME} --zone asia-south1-a --project ${PROJECT_ID}
 
 
 #1
@@ -47,18 +38,19 @@ docker push europe-west2-docker.pkg.dev/${PROJECT_ID}/travis-test/springapp-test
 # echo Y | gcloud run services set-iam-policy travis-spring-app policy.yaml
 
 # gcloud run services replace deployment.yaml --region us-central1
-gcloud run deploy travis-spring-app --image=europe-west2-docker.pkg.dev/${PROJECT_ID}/travis-test/springapp-test:latest --region=us-central1 --allow-unauthenticated
+# gcloud run deploy travis-spring-app --image=europe-west2-docker.pkg.dev/${PROJECT_ID}/travis-test/springapp-test:latest --region=us-central1 --allow-unauthenticated
 
 
 #deploy to kubernetes cluster
-# kubectl apply -f ./deployment.yaml
+kubectl apply -f ./deployment.yaml
 
 # #get status of deployement
-# kubectl get deployments
+kubectl get deployments
 
-# kubectl get pods
+kubectl get pods
 
 # kubectl get services
+
 
 #FOR CONTAINER REGISTERY
 #sudo docker tag springapp-test:latest us.gcr.io/${PROJECT_ID}/app-engine-tmp/app/my-first-service/ttl-18h/springapp-test:latest
