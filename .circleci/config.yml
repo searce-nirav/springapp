@@ -41,7 +41,7 @@ jobs:
             gcloud auth activate-service-account $GOOGLE_SA_NAME --key-file=${HOME}/gcloud-service-key.json
             gcloud config set project $GOOGLE_PROJECT_ID
             echo Y | gcloud auth configure-docker us-central1-docker.pkg.dev
-            docker push us-central1-docker.pkg.dev/thematic-metric-381904/circle-ci/image2
+            docker push us-central1-docker.pkg.dev/thematic-metric-381904/circle-ci/image2 
       
      # - run:
       #    name: Deploy to Cloud Run
