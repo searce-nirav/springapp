@@ -15,7 +15,8 @@ spec:
       containers:
       - name: spring-app
         image: europe-west2-docker.pkg.dev/thematic-metric-381904/travis-test/springapp-test:latest
-        # containerPort: 8080
+        ports:
+        - containerPort: 8080
         env:
           - name: PORT
             value: "8080"
