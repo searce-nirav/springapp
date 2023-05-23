@@ -21,8 +21,8 @@ jobs:
       - run:
           name: Build and tag Docker image
           command: |
-            docker build -t image4:latest .  
-            docker tag image4:latest asia.gcr.io/thematic-metric-381904/image4
+            docker build -t image5:latest .  
+            docker tag image5:latest asia.gcr.io/thematic-metric-381904/image5
             
     #  - run:
      #     name: Authenticate with Artifact Registry
@@ -40,7 +40,7 @@ jobs:
             gcloud auth activate-service-account $GOOGLE_SA_NAME --key-file=${HOME}/gcloud-service-key.json
             gcloud config set project $GOOGLE_PROJECT_ID
             echo Y | gcloud auth configure-docker asia.gcr.io
-            docker push asia.gcr.io/thematic-metric-381904/image4
+            docker push asia.gcr.io/thematic-metric-381904/image5
            # gcloud run deploy circleci --platform=managed --allow-unauthenticated --image=asia.gcr.io/thematic-metric-381904/image1:latest --region=us-central1 
            
             
