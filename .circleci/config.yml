@@ -22,7 +22,7 @@ jobs:
           name: Build and tag Docker image
           command: |
             docker build -t image1:latest .  
-            docker tag image1:latest asia.gcr.io/thematic-metric-381904/image1:latest
+            docker tag image1:latest us-central1-docker.pkg.dev/thematic-metric-381904/circle-ci/image2:latest
             
     #  - run:
      #     name: Authenticate with Artifact Registry
@@ -30,34 +30,30 @@ jobs:
             
 
       - run:
-          name: Push Docker image to Artifact Registry and deploy on cloud run
+          name: Push Docker image to Artifact Registry
           command: |
             curl https://sdk.cloud.google.com | bash -s -- --disable-prompts > /dev/null
+            
             export PATH=${HOME}/google-cloud-sdk/bin:${PATH}
             echo $GOOGLE_SERVICE_KEY > ${HOME}/gcloud-service-key.json
               #cat ${HOME}/gcloud-service-key.json
             #gcloud auth activate-service-account $GOOGLE_SERVICE_KEY --key-file $HOME/gcloud-service-key.json
             gcloud auth activate-service-account $GOOGLE_SA_NAME --key-file=${HOME}/gcloud-service-key.json
             gcloud config set project $GOOGLE_PROJECT_ID
-            echo Y | gcloud auth configure-docker asia.gcr.io
-            docker push asia.gcr.io/thematic-metric-381904/image1:latest
-            gcloud run deploy circleci --platform=managed --allow-unauthenticated --image=asia.gcr.io/thematic-metric-381904/image1:latest --region=us-central1 
-           
-            
+            echo Y | gcloud auth configure-docker us-central1-docker.pkg.dev
+            docker push us-central1-docker.pkg.dev/thematic-metric-381904/circle-ci/image2:latest
       
-      #- run:
+     # - run:
       #    name: Deploy to Cloud Run
-      #    command: |
-            #whereis gcloud
-           # gcloud run deploy circleci \
-           # --image=us-central1-docker.pkg.dev/thematic-metric-381904/circle-ci/image1:latest \
-           # --region=us-central1 \
-           # --allow-unauthenticated
+       #   command: |
+        #      gcloud run deploy circleci \
+         #     --image=us-central1-docker.pkg.dev/thematic-metric-381904/circle-ci/image1:latest \
+          #    --region=us-central1 \
+           #   --allow-unauthenticated
             
-  
+
 workflows:
   version: 2
-  build_and_deploy: 
+  build_and_deploy:
     jobs:
       - build_and_deploy
-
