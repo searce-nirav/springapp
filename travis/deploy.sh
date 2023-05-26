@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+#check what is available on the base image (vm specs)
 df -h
 
 gcloud --quiet components install kubectl
