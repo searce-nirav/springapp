@@ -1,4 +1,6 @@
 ---
+vm:
+  size: [small]
 language: bash
 services:
   - docker
