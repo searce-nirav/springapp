@@ -23,7 +23,10 @@ docker push europe-west2-docker.pkg.dev/${PROJECT_ID}/travis-test/springapp-test
 
 
 #deploy to kubernetes cluster
-kubectl apply -f ./deployment.yaml
+#kubectl apply -f ./deployment.yaml
+
+#to update the image in k8 deployment
+kubectl set image deployment/travis-spring-app spring-app=europe-west2-docker.pkg.dev/${PROJECT_ID}/travis-test/springapp-test:latest
 
 # #get status of deployement
 kubectl get deployments
