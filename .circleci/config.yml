@@ -3,9 +3,16 @@ executors:
   docker-executor:
     docker:
       - image: circleci/python:3.8
+  machine-executor:
+    macos:
+      xcode: 14.2.0
+
 jobs:
   build_and_deploy:
-    executor: docker-executor
+    executor: machine-executor
+    # docker:
+    #   - image: circleci/python:3.8
+
     steps:
       - checkout
       
@@ -49,6 +56,7 @@ jobs:
             
   
 workflows:
+  version: 2
   build_and_deploy: 
     jobs: 
       - build_and_deploy
