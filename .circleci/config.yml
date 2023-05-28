@@ -3,23 +3,19 @@ executors:
   docker-executor:
     docker:
       - image: circleci/python:3.8
-  machine-executor:
-    macos:
-      xcode: 14.2.0
-
+  
 jobs:
   build_and_deploy:
-    executor: machine-executor
-    # docker:
-    #   - image: circleci/python:3.8
+    executor: docker-executor
+    
 
     steps:
       - checkout
       
 
-      # - setup_remote_docker:
-      #     version: 20.10.7
 
+      - setup_remote_docker:
+          version: 20.10.7
 
       #- run:
           #name: Authenticate with Google Cloud
