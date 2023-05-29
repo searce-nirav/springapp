@@ -1,7 +1,4 @@
 ---
-# vm:
-#   size:
-#     - small
 language: bash
 services:
   - docker
@@ -17,18 +14,20 @@ before_install:
   - chmod +x travis/build.sh
 
 
-jobs:
-  include:
-    - stage: build
-      script: travis/build.sh
-    - stage: deploy
-      script: travis/deploy.sh
-      
-# script:
-#   - travis/deploy.sh
+script:
+  - travis/build.sh
+
 notifications:
   email:
     recipients:
       - yug.soni@searce.com
     on_success: never
     on_failure: always
+
+
+# jobs:
+#   include:
+#     - stage: build
+#       script: travis/build.sh
+#     - stage: deploy
+#       script: travis/deploy.sh
