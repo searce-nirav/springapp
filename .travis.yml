@@ -15,7 +15,7 @@ before_install:
 
 script:
   - travis/build.sh
-  - mvn test
+    mvn test
 
 notifications:
   email:
