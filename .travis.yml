@@ -1,4 +1,5 @@
 ---
+arch: arm64
 language: bash
 services:
   - docker

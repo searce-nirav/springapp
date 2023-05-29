@@ -1,5 +1,3 @@
-
-
 #deploy to kubernetes cluster
 #kubectl apply -f ./deployment.yaml
 
@@ -12,6 +10,10 @@ kubectl set image deployment/travis-spring-app spring-app=europe-west2-docker.pk
 kubectl get pods
 
 kubectl get services
+
+
+
+
 
 
 
