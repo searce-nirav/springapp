@@ -13,9 +13,9 @@ before_install:
   - chmod +x travis/deploy.sh
   - chmod +x travis/build.sh
 
-
 script:
   - travis/build.sh
+  - mvn test
 
 notifications:
   email:
@@ -28,6 +28,7 @@ notifications:
 # jobs:
 #   include:
 #     - stage: build
+#       script: travis/build.sh
 #       script: travis/build.sh
 #     - stage: deploy
 #       script: travis/deploy.sh
