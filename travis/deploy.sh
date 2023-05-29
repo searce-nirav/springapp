@@ -29,7 +29,7 @@ docker push europe-west2-docker.pkg.dev/${PROJECT_ID}/travis-test/springapp-test
 kubectl set image deployment/travis-spring-app spring-app=europe-west2-docker.pkg.dev/${PROJECT_ID}/travis-test/springapp-test:latest
 
 # #get status of deployement
-kubectl get deployments
+#kubectl get deployments
 
 kubectl get pods
 

@@ -14,9 +14,18 @@ before_install:
   - source $HOME/google-cloud-sdk/path.bash.inc
   - gcloud version
   - chmod +x travis/deploy.sh
-script:
-  - ls -ll
-  - travis/deploy.sh
+  - chmod +x travis/build.sh
+
+
+jobs:
+  include:
+    - stage: build
+      script: travis/build.sh
+    - stage: deploy
+      script: travis/deploy.sh
+      
+# script:
+#   - travis/deploy.sh
 notifications:
   email:
     recipients:
