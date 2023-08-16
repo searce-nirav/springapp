@@ -35,7 +35,7 @@ jobs:
           name: Build and tag Docker image
           command: |
             docker build -t helm1:latest .  
-            docker tag helm1:latest asia.gcr.io/thematic-metric-381904/helm1
+            docker tag helm1:latest us-central1-docker.pkg.dev/nikhils-playground-010897/harness
             
     #  - run:
      #     name: Authenticate with Artifact Registry
@@ -52,9 +52,9 @@ jobs:
             #gcloud auth activate-service-account $GOOGLE_SERVICE_KEY --key-file $HOME/gcloud-service-key.json
             gcloud auth activate-service-account $GOOGLE_SA_NAME --key-file=${HOME}/gcloud-service-key.json
             gcloud config set project $GOOGLE_PROJECT_ID
-            echo Y | gcloud auth configure-docker asia.gcr.io
-            docker push asia.gcr.io/thematic-metric-381904/helm1
-            gcloud run deploy circleci --platform=managed --allow-unauthenticated --image=asia.gcr.io/thematic-metric-381904/image1:latest --region=us-central1 
+            echo Y | gcloud auth configure-docker us-central1
+            docker push us-central1-docker.pkg.dev/nikhils-playground-010897/harness
+            gcloud run deploy circleci --platform=managed --allow-unauthenticated --image=us-central1-docker.pkg.dev/nikhils-playground-010897/harness:latest --region=us-central1 
            
             
       
