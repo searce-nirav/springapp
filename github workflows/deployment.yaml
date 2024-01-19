@@ -1,0 +1,117 @@
+name: Deploy in gke cluster
+
+on:
+  workflow_call:
+    inputs:
+      SERVICE_NAME:
+        required: true
+        type: string
+        default: "example"
+      SERVICE_NAME_APPEND:
+        required: false
+        type: string
+        default: ""
+        description: "Appends to a service name, useful for special cases like web-qa"
+      VALUES_OVERRIDE_FILE_NAME:
+        required: true
+        type: string
+      HELM_TEMPLATE:
+        required: false
+        type: string
+        default: "../../travelshift-template"
+      HELM_TIMEOUT:
+        required: false
+        type: string
+        default: "10m0s"
+    secrets:
+      PROJECT_ID:
+        required: true
+      GCP_SA_KEY:
+        required: true
+      GKE_REGION:
+        required: true
+      GKE_CLUSTER_NAME:
+        required: true
+      DOPPLER_TOKEN:
+        required: false
+
+jobs:
+  GKE:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+
+      - id: "google-auth"
+        uses: "google-github-actions/auth@v0"
+        with:
+          credentials_json: "${{ secrets.GCP_SA_KEY }}"
+
+      - name: "Set up Cloud SDK"
+        uses: "google-github-actions/setup-gcloud@v0"
+
+      - name: "Setup helm"
+        uses: azure/setup-helm@v1
+        with:
+          version: v3.8.1
+
+      - name: "Gcloud config kubernetes cluster"
+        run: "export KUBECONFIG=~/.kube/config && gcloud container clusters get-credentials ${{ secrets.GKE_CLUSTER_NAME }} --region ${{ secrets.GKE_REGION }} --project ${{ secrets.PROJECT_ID }}"
+
+      - name: "Gcloud auth plugin install"
+        run: "export USE_GKE_GCLOUD_AUTH_PLUGIN=True >> ~/.bashrc && gcloud components install gke-gcloud-auth-plugin"
+
+      - name: Download image tag from artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: dockerimages-${{ secrets.PROJECT_ID }}${{inputs.SERVICE_NAME_APPEND}}
+
+      - name: Set Helm Release Name
+        id: helmrelease
+        run: |-
+          branchname=`[ $GITHUB_HEAD_REF ] && echo $GITHUB_HEAD_REF|| echo $GITHUB_REF_NAME`
+          releasename="`echo $branchname | sed 's/[][\\^\\*+.@$\\\/-]/-/g' | tr '[:upper:]' '[:lower:]'`"
+          echo "releasename is $releasename"
+          echo "::set-output name=helm_release_name::${releasename}"
+
+      - name: Helm dependency build
+        run: >
+          helm dependency build ./helm/templates/charts/${{ inputs.HELM_TEMPLATE }}
+      - name: Helm dry run
+        run: >
+          helm upgrade --install --dry-run ${{ steps.helmrelease.outputs.helm_release_name }}-${{ inputs.SERVICE_NAME }}${{inputs.SERVICE_NAME_APPEND}} ./helm/templates/charts/${{ inputs.HELM_TEMPLATE }}
+          -f ./helm/${{inputs.SERVICE_NAME}}/${{ inputs.VALUES_OVERRIDE_FILE_NAME}}.yaml
+          --set image.repository=`cat dockerimage.txt`
+          --set commit=${GITHUB_SHA::8}
+          --set version=${{ steps.helmrelease.outputs.helm_release_name }}
+          --set doppler.serviceToken=${{ secrets.DOPPLER_TOKEN }}
+          --set app=${{ inputs.SERVICE_NAME }}${{inputs.SERVICE_NAME_APPEND}}
+          -n default
+          --create-namespace
+          --kubeconfig ~/.kube/config
+      - name: Helm install
+        run: >
+          helm upgrade --install ${{ steps.helmrelease.outputs.helm_release_name }}-${{ inputs.SERVICE_NAME }}${{inputs.SERVICE_NAME_APPEND}} ./helm/templates/charts/${{ inputs.HELM_TEMPLATE }}
+          -f ./helm/${{inputs.SERVICE_NAME}}/${{ inputs.VALUES_OVERRIDE_FILE_NAME}}.yaml
+          --set image.repository=`cat dockerimage.txt`
+          --set commit=${GITHUB_SHA::8}
+          --set version=${{ steps.helmrelease.outputs.helm_release_name }}
+          --set doppler.serviceToken=${{ secrets.DOPPLER_TOKEN }}
+          --set app=${{ inputs.SERVICE_NAME }}${{inputs.SERVICE_NAME_APPEND}}
+          -n default
+          --create-namespace
+          --timeout ${{ inputs.HELM_TIMEOUT }}
+          --wait
+          --atomic
+          --kubeconfig ~/.kube/config
+      - name: Kubernetes failure logs
+        if: ${{ failure() }}
+        run: |
+          echo Event logs for ${{ steps.helmrelease.outputs.helm_release_name }}-${{ inputs.SERVICE_NAME }}
+          echo "-----"
+          kubectl get event --namespace default --field-selector involvedObject.kind=Pod | grep ${{ steps.helmrelease.outputs.helm_release_name }}-${{ inputs.SERVICE_NAME }}
+          echo
+          echo "-----"
+          echo "Logs from the deployment"
+          echo "-----"
+          gcloud logging read 'resource.labels.pod_name=~"${{ steps.helmrelease.outputs.helm_release_name }}-${{ inputs.SERVICE_NAME }}.*" severity>=DEFAULT' --format="value(textPayload)" --freshness=15m
+

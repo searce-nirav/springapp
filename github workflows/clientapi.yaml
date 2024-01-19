@@ -1,0 +1,114 @@
+name: clientapi
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - src/js/clientapi/**
+      - helm/clientapi/**
+      - .github/workflows/clientapi.yaml
+    branches:
+      - master
+
+  pull_request:
+    paths:
+      - src/js/clientapi/**
+      - helm/clientapi/**
+      - .github/workflows/clientapi.yaml
+    types: [opened, synchronize, reopened]
+
+env:
+  servicename: "clientapi"
+
+jobs:
+  RUN-TEST-CASES:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          cache: "yarn"
+          cache-dependency-path: |
+            src/js/yarn.lock
+
+      - name: Restore common clientapi cache
+        uses: actions/cache@v3
+        id: cache-install
+        with:
+          path: |
+            src/js/package.json
+            src/js/node_modules
+            src/js/clientapi/node_modules
+          key: ${{ runner.os }}-clientapi-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}
+
+      - name: Yarn install
+        run: |
+          cd src/js
+          yarn install
+
+      - name: Run test
+        run: |
+          cd src/js
+          export FORCE_COLOR=true
+          yarn workspace @travelshift/clientapi test --reporters=default --reporters=jest-junit
+
+# Staging Environment Deployment
+  STAGING-BUILD:
+    needs: RUN-TEST-CASES
+    uses: ./.github/workflows/dotnet-docker-build-push.yaml
+    with:
+      SERVICE_NAME: "clientapi"
+      DOCKER_BUILD_PATH: "src/js"
+    secrets:
+      NUGET_GITHUB_PACKAGE_TOKEN: ${{ secrets.NUGET_GITHUB_PACKAGE_TOKEN }}
+      NUGET_GITHUB_PACKAGE_USER: ${{ secrets.NUGET_GITHUB_PACKAGE_USER }}
+      NUGET_GITHUB_URL: ${{ secrets.NUGET_GITHUB_URL }}
+      PROJECT_ID: ${{ secrets.PROJECT_ID_STAGE }}
+      GCP_SA_KEY: ${{ secrets.GCP_SA_KEY_STAGE }}
+
+  STAGING-DEPLOYMENT:
+    needs: STAGING-BUILD
+    uses: ./.github/workflows/deployment.yaml
+    with:
+      SERVICE_NAME: "clientapi"
+      HELM_TIMEOUT: 10m0s
+      VALUES_OVERRIDE_FILE_NAME: "stage-values" #override file name of file with out extension *.yaml
+    secrets:
+      PROJECT_ID: ${{ secrets.PROJECT_ID_STAGE }}
+      GCP_SA_KEY: ${{ secrets.GCP_SA_KEY_STAGE }}
+      GKE_REGION: ${{ secrets.STAGE_GKE_REGION }}
+      GKE_CLUSTER_NAME: ${{ secrets.STAGE_GKE }}
+      DOPPLER_TOKEN: ${{ secrets.DOPPLER_SA_TOKEN }}
+
+
+# Production Environment Deployment
+  PRODUCTION-BUILD:
+    needs: RUN-TEST-CASES
+    if: github.ref == 'refs/heads/master'
+    uses: ./.github/workflows/dotnet-docker-build-push.yaml
+    with:
+      SERVICE_NAME: "clientapi"
+      DOCKER_BUILD_PATH: "src/js"
+    secrets:
+      NUGET_GITHUB_PACKAGE_TOKEN: ${{ secrets.NUGET_GITHUB_PACKAGE_TOKEN }}
+      NUGET_GITHUB_PACKAGE_USER: ${{ secrets.NUGET_GITHUB_PACKAGE_USER }}
+      NUGET_GITHUB_URL: ${{ secrets.NUGET_GITHUB_URL }}
+      PROJECT_ID: ${{ secrets.PROJECT_ID_PROD }}
+      GCP_SA_KEY: ${{ secrets.GCP_SA_KEY_PROD }}
+
+  PRODUCTION-DEPLOYMENT:
+    needs: PRODUCTION-BUILD
+    if: github.ref == 'refs/heads/master'
+    uses: ./.github/workflows/deployment.yaml
+    with:
+      SERVICE_NAME: "clientapi"
+      HELM_TIMEOUT: 10m0s
+      VALUES_OVERRIDE_FILE_NAME: "prod-values" #override file name of file with out extension *.yaml
+    secrets:
+      PROJECT_ID: ${{ secrets.PROJECT_ID_PROD }}
+      GCP_SA_KEY: ${{ secrets.GCP_SA_KEY_PROD }}
+      GKE_REGION: ${{ secrets.PROD_GKE_REGION }}
+      GKE_CLUSTER_NAME: ${{ secrets.PROD_GKE }}
+      DOPPLER_TOKEN: ${{ secrets.DOPPLER_SA_TOKEN }}
