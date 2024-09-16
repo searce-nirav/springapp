@@ -1,0 +1,59 @@
+version: 2.1
+executors:
+  docker-executor:
+    docker:
+      - image: circleci/python:3.8
+  
+jobs:
+  build_and_deploy:
+    executor: docker-executor
+    
+
+    steps:
+      - checkout
+      
+
+
+      - setup_remote_docker:
+          version: 20.10.7
+
+      #- run:
+          #name: Authenticate with Google Cloud
+          #command: |
+            
+      - run:
+          name: Build and tag Docker image
+          command: |
+            docker build -t image5:latest .  
+            docker tag image5:latest asia.gcr.io/thematic-metric-381904/image5
+            
+    #  - run:
+     #     name: Authenticate with Artifact Registry
+      #    command: |
+            
+
+      - run:
+          name: Push Docker image to Artifact Registry and deploy on cloud run
+          command: |
+            curl https://sdk.cloud.google.com | bash -s -- --disable-prompts > /dev/null
+            export PATH=${HOME}/google-cloud-sdk/bin:${PATH}
+            echo $GOOGLE_SERVICE_KEY > ${HOME}/gcloud-service-key.json
+              #cat ${HOME}/gcloud-service-key.json
+            #gcloud auth activate-service-account $GOOGLE_SERVICE_KEY --key-file $HOME/gcloud-service-key.json
+            gcloud auth activate-service-account $GOOGLE_SA_NAME --key-file=${HOME}/gcloud-service-key.json
+            gcloud config set project $GOOGLE_PROJECT_ID
+            echo Y | gcloud auth configure-docker asia.gcr.io
+            docker push asia.gcr.io/thematic-metric-381904/image5
+            gcloud run deploy circleci --platform=managed --allow-unauthenticated --image=asia.gcr.io/thematic-metric-381904/image1:latest --region=us-central1 
+           
+            
+      
+     
+            
+  
+workflows:
+  version: 2
+  build_and_deploy: 
+    jobs: 
+      - build_and_deploy
+
