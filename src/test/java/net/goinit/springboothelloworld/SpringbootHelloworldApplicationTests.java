@@ -1,3 +1,5 @@
+// test commit for code rabbit
+
 package net.goinit.springboothelloworld;
 
 import org.junit.jupiter.api.Test;
