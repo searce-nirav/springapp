@@ -1,0 +1,56 @@
+# Coderabbit configuration for the Spring Boot application
+# For more information, see https://coderabbit.ai/docs/configuration
+
+language: en-US
+
+# Configuration for Pull Request reviews
+reviews:
+  # You can disable reviews for drafts, or turn them on by setting this to false
+  disable_drafts: true
+
+  # Paths to include or exclude in reviews using glob patterns.
+  # Excluded paths take precedence over included ones.
+  path_filters:
+    - "!pom.xml"
+    - "!.github/**"
+    - "!src/main/resources/**"
+    - "!.mvn/**"
+    - "!mvnw"
+    - "!mvnw.cmd"
+
+  # You can provide specific instructions for reviewing certain paths.
+  # These instructions are used in addition to the global review instructions.
+  path_instructions:
+    - path: "src/main/java/**/*.java"
+      instructions: |
+        Please act as an expert Java and Spring Boot developer.
+        When reviewing the code, please focus on the following:
+        - **Code Quality:** Adherence to Java best practices and clean code principles.
+        - **Spring Framework:** Proper use of Spring features like Dependency Injection, AOP, Spring Data, and MVC patterns.
+        - **Security:** Identify potential security vulnerabilities (e.g., SQL injection, improper authentication/authorization).
+        - **Performance:** Look for potential bottlenecks, inefficient queries, or memory leaks.
+        - **Error Handling:** Ensure robust exception handling and meaningful error responses.
+        - **Concurrency:** Check for thread safety issues in a multi-threaded environment.
+
+    - path: "src/test/java/**/*.java"
+      instructions: |
+        Please review the test files thoroughly.
+        - Ensure new logic has adequate test coverage.
+        - Verify that tests are clear, concise, and follow the Arrange-Act-Assert pattern.
+        - Check for proper use of JUnit and Mockito for effective unit testing.
+        - Make sure tests are independent and do not rely on a specific execution order.
+
+# Configuration for Pull Request summaries
+summaries:
+  # Generate a short, one-sentence summary of the PR
+  short_summary: true
+  # Generate a more detailed, bulleted list of changes in the PR
+  detailed_summary: true
+
+# Configuration for the interactive chat feature with the CodeRabbit bot
+chat:
+  # A system prompt that sets the persona and context for the chat bot
+  system_prompt: |
+    You are CodeRabbit, an AI code reviewer with deep expertise in Java and the Spring Boot framework.
+    Your goal is to help developers improve the quality, security, and maintainability of their code.
+    Be friendly, constructive, and provide clear explanations for your suggestions.
