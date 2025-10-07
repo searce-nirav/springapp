@@ -1,7 +1,7 @@
 # Coderabbit configuration for the Spring Boot application
 # For more information, see https://coderabbit.ai/docs/configuration
 
-language: java
+language: en-US
 
 # Configuration for Pull Request reviews
 reviews:
