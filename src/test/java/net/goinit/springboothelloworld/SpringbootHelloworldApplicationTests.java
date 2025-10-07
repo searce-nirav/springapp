@@ -1,4 +1,4 @@
-// test commit for code rabbit
+// test commit
 
 package net.goinit.springboothelloworld;
 
