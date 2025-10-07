@@ -6,7 +6,7 @@ language: en-US
 # Configuration for Pull Request reviews
 reviews:
   # You can disable reviews for drafts, or turn them on by setting this to false
-  reviews.auto_review.drafts: true
+  disable_drafts: true
 
   # Paths to include or exclude in reviews using glob patterns.
   # Excluded paths take precedence over included ones.
